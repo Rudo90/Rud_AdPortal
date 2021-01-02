@@ -133,7 +133,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
             String phone = scanner.nextLine();
             System.out.println("Create user password");
             String password = scanner.nextLine();
-            if (user.passwordIsEmpty()){
+            if (password.isEmpty()){
                 System.out.println("Password field is empty, please create a password!");
                 return;
             }
