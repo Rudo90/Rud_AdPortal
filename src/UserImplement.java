@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
-public class UserImplement extends HashMap {
+public class UserImplement {
 
-    HashMap<String, User> map = new HashMap();
+    HashMap<String, User> map = new HashMap<>();
 
     public void addUser(User user) {
 

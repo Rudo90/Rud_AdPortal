@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Advertisement extends User {
 
     private String title;
@@ -48,6 +50,25 @@ public class Advertisement extends User {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return Double.compare(that.price, price) == 0 &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(text, that.text) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(category, that.category) &&
+                Objects.equals(idNumber, that.idNumber) &&
+                Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, text, price, date, category, idNumber, user);
     }
 
     @Override

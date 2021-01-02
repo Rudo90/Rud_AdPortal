@@ -43,6 +43,13 @@ public class User {
         return password;
     }
 
+    public boolean passwordIsEmpty() {
+        if (password != null) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return "User{" +

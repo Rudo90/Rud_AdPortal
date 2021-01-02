@@ -7,10 +7,8 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
 
     static Scanner scanner = new Scanner(System.in);
     static UserImplement userImplement = new UserImplement();
-    static User user = new User();
-    static Advertisement advertisement = new Advertisement();
     static AdvertisementImplement advertisementImplement = new AdvertisementImplement();
-
+    static User user = new User();
     static void printCommands() {
         System.out.println("Input 0 to EXIT");
         System.out.println("Input 1 to LOGIN");
@@ -127,10 +125,18 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         System.out.println("Input user age");
         try {
             int age = Integer.parseInt(scanner.nextLine());
+            if (age < 18 || age >= 70){
+                System.out.println("User must be older than 18");
+                return;
+            }
             System.out.println("Input user phone number");
             String phone = scanner.nextLine();
             System.out.println("Create user password");
             String password = scanner.nextLine();
+            if (user.passwordIsEmpty()){
+                System.out.println("Password field is empty, please create a password!");
+                return;
+            }
             if (userImplement.map.containsKey(phone)) {
                 throw new MyException("Account already exist!");
             }
@@ -159,8 +165,9 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         String idNumber = scanner.nextLine();
         System.out.println("Please confirm by your phone number");
         String phone = scanner.nextLine();
-        String idNumber1 = idNumber + phone + dateTime;
-        Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1, userImplement.map.get(phone));
+        String idNumber1 = category.concat(idNumber.concat(phone));
+        Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1,
+                userImplement.map.get(phone));
         advertisementImplement.addAd(ad);
         System.out.println("Ad was added successfully");
         System.out.println(ad);

@@ -1,24 +1,25 @@
 import java.util.HashMap;
 
-public class AdvertisementImplement extends HashMap {
+public class AdvertisementImplement {
 
-    HashMap<String, Advertisement> list = new HashMap();
+    HashMap<String, Advertisement> list = new HashMap<>();
     User user = new User();
     Advertisement advertisement = new Advertisement();
 
     public AdvertisementImplement() {
     }
 
-    public void addAd(Advertisement ad){
+    public void addAd(Advertisement ad) {
 
-        list.put(advertisement.getIdNumber(), ad);
+            String key = advertisement.getIdNumber();
+            list.put(key, ad);
     }
 
     public void printMyAllAds(String phone) {
 
         for (int i = 0; i < list.size(); i++){
             if (list.get(advertisement.getIdNumber()).toString().contains(phone))
-                System.out.println(list.get(advertisement.getPhoneNumber()));
+                System.out.println(list.values());
         }
     }
 
