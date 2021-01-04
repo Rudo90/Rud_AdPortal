@@ -8,7 +8,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
     static Scanner scanner = new Scanner(System.in);
     static UserImplement userImplement = new UserImplement();
     static AdvertisementImplement advertisementImplement = new AdvertisementImplement();
-    static User user = new User();
+
     static void printCommands() {
         System.out.println("Input 0 to EXIT");
         System.out.println("Input 1 to LOGIN");
@@ -150,33 +150,49 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         }
     }
 
-    public static void addAd(){
-        System.out.println("Input Ad title");
-        String title = scanner.nextLine();
-        System.out.println("Input Ad text");
-        String text = scanner.nextLine();
-        System.out.println("Input Ad price");
-        double price = Double.parseDouble(scanner.nextLine());
-        DateTimeFormatter mediumDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        String dateTime = LocalDateTime.now().format(mediumDate);
-        System.out.println("Input Ad category");
-        String category = scanner.nextLine();
-        System.out.println("Please input IDNumber for your ad");
-        String idNumber = scanner.nextLine();
-        System.out.println("Please confirm by your phone number");
-        String phone = scanner.nextLine();
-        String idNumber1 = category.concat(idNumber.concat(phone));
-        Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1,
-                userImplement.map.get(phone));
-        advertisementImplement.addAd(ad);
-        System.out.println("Ad was added successfully");
-        System.out.println(ad);
+    public static void addAd() {
+        System.out.println("Please input a count of ads to create");
+        try {
+            String count = scanner.nextLine();
+            Integer number = Integer.parseInt(count);
+            if (number instanceof Number) {
+                for (int i = 0; i < number; i++) {
+                    System.out.println("Input Ad title");
+                    String title = scanner.nextLine();
+                    System.out.println("Input Ad text");
+                    String text = scanner.nextLine();
+                    System.out.println("Input Ad price");
+                    Double price = Double.parseDouble(scanner.nextLine());
+                    if (price instanceof Number) {
+                        DateTimeFormatter mediumDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+                        String dateTime = LocalDateTime.now().format(mediumDate);
+                        System.out.println("Input Ad category");
+                        String category = scanner.nextLine();
+                        System.out.println("Please input keyword for your ad");
+                        String idNumber = scanner.nextLine();
+                        System.out.println("Please confirm by your phone number");
+                        String phone = scanner.nextLine();
+                        String idNumber1 = category.concat(idNumber.concat(phone));
+                        Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1,
+                                userImplement.map.get(phone));
+                        advertisementImplement.list.put(idNumber1, ad);
+                        //    advertisementImplement.addAd(ad);
+                        System.out.println("Ad was added successfully");
+                        System.out.println(ad);
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a number");
+            addAd();
+        }
     }
 
     public static void printMyAllAds(){
 
         System.out.println("Input your phone to see the ads list");
         String phone = scanner.nextLine();
+        System.out.println("Here is your ads list:");
         advertisementImplement.printMyAllAds(phone);
     }
 
@@ -192,6 +208,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
     }
 
     public static void deleteMyAllAds(){
+
         System.out.println("Please input your phone number to delete your ads");
         String phone = scanner.nextLine();
         advertisementImplement.deleteMyAllAds(phone);
@@ -199,6 +216,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
     }
 
     public static void deleteAdByTitle (){
+
         System.out.println("Input ad title to delete");
         String title = scanner.nextLine();
         advertisementImplement.deleteAdByTitle(title);
