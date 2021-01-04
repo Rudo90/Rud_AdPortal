@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Advertisement extends User {
+public class Advertisement {
 
     private String title;
     private String text;

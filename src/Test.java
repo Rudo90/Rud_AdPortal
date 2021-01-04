@@ -3,11 +3,11 @@ import java.time.LocalDateTime;
 import java.time.format.FormatStyle;
 import java.util.Scanner;
 
-public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
+public class Test implements ExitLoginRegisterCommands, UserAccountCommands, MaleFemaleCommands {
 
     static Scanner scanner = new Scanner(System.in);
-    static UserImplement userImplement = new UserImplement();
-    static AdvertisementImplement advertisementImplement = new AdvertisementImplement();
+    static UserStorage userStorage = new UserStorage();
+    static AdvertisementStorage advertisementStorage = new AdvertisementStorage();
 
     static void printCommands() {
         System.out.println("Input 0 to EXIT");
@@ -25,7 +25,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         System.out.println("Input 6 to DELETE AD BY TITLE");
     }
 
-    public static void main(String[] args) throws MyException {
+    public static void main(String[] args) {
 
         boolean isRun = true;
 
@@ -50,7 +50,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
     }
 
     public static void login() {
-        if (userImplement.map.size() == 0) {
+        if (userStorage.map.size() == 0) {
             System.out.println("Please register");
             register();
         } else {
@@ -59,11 +59,11 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
                 String phone = scanner.nextLine();
                 System.out.println("Input your password");
                 String password = scanner.nextLine();
-                if (!userImplement.map.containsKey(phone) || !userImplement.map.get(phone).getPassword().equals(password)) {
-                    throw new MyException("Wrong phone number or password, or User has not been registered yet!");
+                if (!userStorage.map.containsKey(phone) || !userStorage.map.get(phone).getPassword().equals(password)) {
+                    throw new LoginRegisterExceptions("Wrong phone number or password, or User has not been registered yet!");
                 }
-                System.out.println("Welcome to your account " + userImplement.map.get(phone).getName() + " " +
-                        userImplement.map.get(phone).getSurname() + " !");
+                System.out.println("Welcome to your account " + userStorage.map.get(phone).getName() + " " +
+                        userStorage.map.get(phone).getSurname() + " !");
                 System.out.println("Choose one of the following commands");
                 for (int i = 0; i < 25; i++) {
                     printCommandsForUser();
@@ -96,7 +96,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
                     }
 
                 }
-            } catch (MyException e) {
+            } catch (LoginRegisterExceptions e) {
                 System.out.println(e.getMessage());
                 login();
             }
@@ -137,14 +137,14 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
                 System.out.println("Password field is empty, please create a password!");
                 return;
             }
-            if (userImplement.map.containsKey(phone)) {
-                throw new MyException("Account already exist!");
+            if (userStorage.map.containsKey(phone)) {
+                throw new LoginRegisterExceptions("Account already exist!");
             }
             User user = new User(name, surname, gender, age, phone, password);
             System.out.println(user.toString());
-            userImplement.addUser(user);
+            userStorage.addUser(user);
             System.out.println("User account was created successfully!");
-        } catch (MyException e) {
+        } catch (LoginRegisterExceptions e) {
             System.out.println(e.getMessage());
             register();
         }
@@ -174,8 +174,8 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
                         String phone = scanner.nextLine();
                         String idNumber1 = category.concat(idNumber.concat(phone));
                         Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1,
-                                userImplement.map.get(phone));
-                        advertisementImplement.list.put(idNumber1, ad);
+                                userStorage.map.get(phone));
+                        advertisementStorage.list.put(idNumber1, ad);
                         System.out.println("Ad was added successfully");
                         System.out.println(ad);
                     }
@@ -192,25 +192,25 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         System.out.println("Input your phone to see the ads list");
         String phone = scanner.nextLine();
         System.out.println("Here is your ads list:");
-        advertisementImplement.printMyAllAds(phone);
+        advertisementStorage.printMyAllAds(phone);
     }
 
     public static void printAllAds(){
 
-        advertisementImplement.printAllAds();
+        advertisementStorage.printAllAds();
     }
 
     public static void printAdByCategory(){
         System.out.println("Please input category");
         String category = scanner.nextLine();
-        advertisementImplement.printAdByCategory(category);
+        advertisementStorage.printAdByCategory(category);
     }
 
     public static void deleteMyAllAds(){
 
         System.out.println("Please input your phone number to delete your ads");
         String phone = scanner.nextLine();
-        advertisementImplement.deleteMyAllAds(phone);
+        advertisementStorage.deleteMyAllAds(phone);
 
     }
 
@@ -221,7 +221,7 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
         String title = scanner.nextLine();
         System.out.print("phone number: ");
         String phone = scanner.nextLine();
-            advertisementImplement.deleteAdByTitle(title, phone);
+            advertisementStorage.deleteAdByTitle(title, phone);
         }
 
 }

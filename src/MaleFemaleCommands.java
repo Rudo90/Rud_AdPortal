@@ -1,4 +1,4 @@
-public interface MyCommands_3 {
+public interface MaleFemaleCommands {
 
     String Male = "0";
     String Female = "1";

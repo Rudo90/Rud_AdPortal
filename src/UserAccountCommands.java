@@ -1,4 +1,4 @@
-public interface MyCommands_2 {
+public interface UserAccountCommands {
 
     String LOGOUT = "0";
     String ADD_NEW_AD = "1";

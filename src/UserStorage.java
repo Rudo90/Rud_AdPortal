@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class UserImplement {
+public class UserStorage {
 
     HashMap<String, User> map = new HashMap<>();
 

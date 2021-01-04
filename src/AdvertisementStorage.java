@@ -1,11 +1,11 @@
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class AdvertisementImplement {
+public class AdvertisementStorage {
 
     HashMap<String, Advertisement> list = new HashMap<>();
 
-    public AdvertisementImplement() {
+    public AdvertisementStorage() {
     }
 
     public void printMyAllAds(String phone) {
@@ -52,12 +52,5 @@ public class AdvertisementImplement {
                 iterator_1.remove();
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return "AdvertisementImplement{" +
-                "list=" + list +
-                '}';
     }
 }
