@@ -176,7 +176,6 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
                         Advertisement ad = new Advertisement(title, text, price, dateTime, category, idNumber1,
                                 userImplement.map.get(phone));
                         advertisementImplement.list.put(idNumber1, ad);
-                        //    advertisementImplement.addAd(ad);
                         System.out.println("Ad was added successfully");
                         System.out.println(ad);
                     }
@@ -217,10 +216,13 @@ public class Test implements MyCommands_1, MyCommands_2, MyCommands_3 {
 
     public static void deleteAdByTitle (){
 
-        System.out.println("Input ad title to delete");
+        System.out.println("Input ad title and your phone number to delete");
+        System.out.print("ad title: ");
         String title = scanner.nextLine();
-        advertisementImplement.deleteAdByTitle(title);
-    }
+        System.out.print("phone number: ");
+        String phone = scanner.nextLine();
+            advertisementImplement.deleteAdByTitle(title, phone);
+        }
 
 }
 

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class AdvertisementImplement {
 
@@ -30,21 +31,25 @@ public class AdvertisementImplement {
         }
     }
 
-    public void deleteMyAllAds(String phone){
+    public void deleteMyAllAds(String phone) {
 
-            for (String s : list.keySet()) {
-                if (s.contains(phone)) {
-                    list.remove(s);
-                    return;
-                }
+        Iterator<String> iterator = list.keySet().iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            if (key.contains(phone)) {
+                iterator.remove();
             }
         }
+    }
 
-    public void deleteAdByTitle(String title) {
-        for (Advertisement value : list.values()) {
-            if (value.getTitle().contains(title)) {
-                String s = value.getIdNumber();
-                list.remove(s);
+    public void deleteAdByTitle(String title, String phone) {
+        Iterator<String> iterator_1 = list.keySet().iterator();
+        Iterator<Advertisement> iterator_2 = list.values().iterator();
+        while (iterator_2.hasNext() && iterator_1.hasNext()){
+            String keyValue = iterator_2.next().toString();
+            String key = iterator_1.next();
+            if (key.contains(phone) && keyValue.contains(title)){
+                iterator_1.remove();
             }
         }
     }
